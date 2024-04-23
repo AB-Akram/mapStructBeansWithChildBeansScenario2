@@ -1,0 +1,1 @@
+# mapStructBeansWithChildBeansScenario2
