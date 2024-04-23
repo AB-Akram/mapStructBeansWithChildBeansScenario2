@@ -4,16 +4,21 @@ import org.example.mapstructbeanswithchildbeansscenario2.dto.EmployeeDTO;
 import org.example.mapstructbeanswithchildbeansscenario2.entity.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {DepartmentMapper.class})
 public interface EmployeeMapper {
-    @Mapping(source = "empId", target = "id")
-    @Mapping(source = "empName", target = "name")
-    @Mapping(source = "departmentName", target = "department.deptName")
+    @Mappings({
+            @Mapping(source = "empId", target = "id"),
+            @Mapping(source = "empName", target = "name"),
+            @Mapping(source = "departmentDTO", target = "department")
+    })
     Employee toEntity(EmployeeDTO employeeDTO);
 
-    @Mapping(target = "empId", source = "id")
-    @Mapping(target = "empName", source = "name")
-    @Mapping(target = "departmentName", source = "department.deptName")
+    @Mappings({
+            @Mapping(target = "empId", source = "id"),
+            @Mapping(target = "empName", source = "name"),
+            @Mapping(target = "departmentDTO", source = "department")
+    })
     EmployeeDTO toDto(Employee employee);
 }
